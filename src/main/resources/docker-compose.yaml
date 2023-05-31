@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  afc-tapprocess:
+    image: 192.168.1.201:5000/afc-tapprocess:sv201
+    container_name: afc-tapprocess
+    ports:
+      - 57770:57770
+    restart: always
+    hostname: afc-tapprocess
+    command:
+      - "--conn-limit=2048"
+      - "--memory-limit=2048"
+    volumes:
+      - dir-tapprocess:/user01/afc-tapprocess/
+
+#  ---------------------------------------------------------------------------------------
+
+volumes:
+  dir-tapprocess:
+    driver: local
+    driver_opts:
+      type: none
+      device: "/user01/afc-tapprocess/"
+      o: bind
