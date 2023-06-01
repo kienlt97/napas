@@ -6,7 +6,7 @@ pipeline {
 	}
 	agent any
 	stages {
-		stage('Cloning our Git') {
+		stage('Cloning Git') {
 			steps {
 				git 'https://github.com/kienlt97/napas.git'
 			}
