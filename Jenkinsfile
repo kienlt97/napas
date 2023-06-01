@@ -11,26 +11,29 @@ pipeline {
 				git 'https://github.com/kienlt97/napas.git'
 			}
 		}
+		stage('Maven Install') {
+			agent {
+					docker {
+						image 'maven:3.5.0'
+					}
+			 }
+			 steps {
+					sh 'mvn clean install'
+			 }
+		}
 		stage('Building our image') {
 			steps{
-				script {
-					dockerImage = docker.build registry + ":$BUILD_NUMBER"
-				}
+				sh 'docker build -t napas:latest .'
 			}
 		}
-		stage('Deploy our image') {
-			steps{
-				script {
-						docker.withRegistry( '', registryCredential ) {
-						dockerImage.push()
-					}
+		stage('Docker Push') {
+			  agent any
+			  steps {
+					withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'kienlt1997', usernameVariable: 'trungkienmta97')]) {
+					sh "docker login -u ${env.trungkienmta97} -p ${env.kienlt1997}"
+					sh 'docker push napas:latest'
 				}
-			}
-		}
-		stage('Cleaning up') {
-			steps{
-				sh "docker rmi $registry:$BUILD_NUMBER"
-			}
+			  }
 		}
 	}
 }
