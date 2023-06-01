@@ -1,10 +1,12 @@
 pipeline{
 
-	agent {label 'linux'}
+	agent any
 
 	environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
-	}
+    		registry = "trungkienmta97/napas"
+    		registryCredential = 'dockerhub'
+    		dockerImage = ''
+    }
 
 	stages {
 
