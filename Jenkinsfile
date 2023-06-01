@@ -1,36 +1,46 @@
-pipeline {
+pipeline{
+
+	agent {label 'linux'}
+
 	environment {
-		registry = "trungkienmta97/napas"
-		registryCredential = 'dockerhub'
-		dockerImage = ''
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
 	}
-	agent any
+
 	stages {
-		stage('Cloning Git') {
+
+	    stage('gitclone') {
+
 			steps {
 				git 'https://github.com/kienlt97/napas.git'
 			}
 		}
-		stage('Building our image') {
-			steps{
-				script {
-					dockerImage = docker.build registry + ":$BUILD_NUMBER"
-				}
+
+		stage('Build') {
+
+			steps {
+				sh 'docker build -t napas:latest .'
 			}
 		}
-		stage('Deploy our image') {
-			steps{
-				script {
-						docker.withRegistry( '', registryCredential ) {
-						dockerImage.push()
-					}
-				}
+
+		stage('Login') {
+
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			}
 		}
-		stage('Cleaning up') {
-			steps{
-				sh "docker rmi $registry:$BUILD_NUMBER"
+
+		stage('Push') {
+
+			steps {
+				sh 'docker push napas:latest'
 			}
 		}
 	}
+
+	post {
+		always {
+			sh 'docker logout'
+		}
+	}
+
 }
