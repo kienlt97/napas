@@ -44,9 +44,9 @@ def notifyBuild(String buildStatus = 'STARTED'){
     <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME}</a>"</p>"""
   
   // Email notification
-  emailext (
-     to: "admin@gmail.com",
-     subject: subject_email,
+    emailext (
+     to: "kienlt543@gmail.com",
+     subject: Deploy system is error,
      body: details,
      recipientProviders: [[$class: 'DevelopersRecipientProvider']]
   )
