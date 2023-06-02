@@ -1,9 +1,4 @@
 pipeline {
-	environment {
-		registry = "trungkienmta97/napas"
-		registryCredential = 'dockerhub'
-		dockerImage = ''
-	}
 	agent any
 	stages {
 		stage('Cloning our Git') {
