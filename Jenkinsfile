@@ -1,7 +1,7 @@
 pipeline {
 	agent any
 	stages {
-		stage('Cloning repo') {
+		stage('Cloning repository') {
 			steps {
 				git 'https://github.com/kienlt97/napas.git'
 			}
