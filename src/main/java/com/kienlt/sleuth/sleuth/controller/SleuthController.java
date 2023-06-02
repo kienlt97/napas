@@ -41,7 +41,7 @@ public class SleuthController {
     @GetMapping(value = "/hello")
     public DataResponse helloWorld() {
         log.info("Start hello : {}", LocalDateTime.now());
-        String response = "Test Hello World! ... " + new Date();
+        String response = "Test Hello World! ../. " + new Date();
         log.info("response: {}",DataResponse.builder().code("success").status(true).traceId(tracer.currentSpan().context().traceId()).data(response).build());
 
         return DataResponse.builder().code("success").status(true).traceId(tracer.currentSpan().context().traceId()).data(response).build();
