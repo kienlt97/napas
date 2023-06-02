@@ -46,7 +46,7 @@ def notifyBuild(String buildStatus = 'STARTED'){
   // Email notification
   emailext (
      to: "kienlt543@gmail.com",
-     subject: Deploy system is error,
+     subject: Deploy_system_is_error,
      body: details,
      recipientProviders: [[$class: 'DevelopersRecipientProvider']]
   )
