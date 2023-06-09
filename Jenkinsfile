@@ -10,7 +10,7 @@ pipeline{
 
 	stages {
 
-	    stage('gitclone') {
+	    stage('gitclone src') {
 
 			steps {
 				git 'https://github.com/kienlt97/napas.git'
