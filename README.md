@@ -1,1 +1,1 @@
-https://drive.google.com/file/d/1Oq3y4SP55CLwqCNJz5WPxo0yTLrpc4oo/view?usp=sharing
+https://tuyendung.vpbank.com.vn/viec-lam/thuc-tap-sinh-digital-marketing-ha-noi-ta050.35aa37ff.html
