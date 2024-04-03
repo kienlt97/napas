@@ -4,3 +4,4 @@ api_key: lwaoJYVsMOYVNIBXma32k3PoNzhB5kJ7A6TcRv6cQEqPUTEBMBZHPWiFKZ7bIRqM
 api_secret: aDpaIwHf9GVJBiI36aUye5Y2zd1LKCPAUjKIMD9N5ZhzJBqNOJN6Jy09Waw7HBjO
 
 https://www.vpbanks.com.vn/jobs/chuy%C3%AAn-vi%C3%AAn%2Fchuy%C3%AAn-vi%C3%AAn-cao-c%E1%BA%A5p-ph%C3%A1t-tri%E1%BB%83n-%E1%BB%A9ng-d%E1%BB%A5ng-backend
+https://tuyendung.vpbank.com.vn/viec-lam/kien-truc-su-nghiep-vu-business-architect-ta099.35aa60a1.html
