@@ -11,3 +11,14 @@ https://tuyendung.vpbank.com.vn/tim-viec-lam/vi?q=&dep=4654&level=&loc=&page=2
 https://tuyendung.vpbank.com.vn/viec-lam/java-deveoper-spring-boot-hn-ta144.35aa7d8f.html
 
 https://tuyendung.vpbank.com.vn/tim-viec-lam/vi?q=&dep=4654&level=&loc=4&page=1
+
+https://academy.vpbank.com.vn/learning/course/view.php?id=1245
+
+https://academy.vpbank.com.vn/learning/course/view.php?id=1257
+
+https://academy.vpbank.com.vn/learning/course/view.php?id=1253
+
+https://academy.vpbank.com.vn/learning/course/view.php?id=1251
+
+setInterval(()=>{document.getElementById("next").click();},3000)
+ 
