@@ -1,0 +1,81 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant "VA" as va
+participant "Coordinator" as pcd
+participant "Payment" as pm
+participant "CS" as cs
+database "Ecom" as ecom
+database "Coordinator-DB" as pcd_db
+
+== Thanh toán QR ==
+va -> pcd: Tạo request yêu cầu thanh toán QR \nPOST /api/v1/va-payment/credit-transaction \t\t\t
+note right va
+{
+    "shopCode": "S1234",
+    "packageOrders": [
+        499790950734,
+        499790950735
+    ],
+    "requiredAmount": "111111",
+    "paymentAmount": "50000",
+    "vaId": "12332",
+    "bankAccountNumber" : "12312312",
+    "bankAccountName" : "VP",
+    "bankCode" : "VP01",
+    "bankName" : "VP bank"
+}
+end note
+activate pcd
+pcd -> pcd_db: \n select * from va_shop where va_id = ?
+activate pcd_db
+pcd_db -> pcd: \t\t\t<<result>>
+deactivate pcd_db
+alt#Gold #LightBlue validate va_id exist is true
+pcd -> va: Mã giao dịch ngân hàng đã tồn tại
+end
+
+pcd -> ecom:
+activate ecom
+ecom -> pcd: \t\t\t<<result>>
+deactivate ecom
+
+alt#gold #pink wallet active is false
+pcd -> cs: Lấy tiền trả trước hiện thời của ds đơn.
+else #lightblue wallet active is true
+
+pcd -> pm: call api /handle-payment-amount
+activate pm
+note right pcd
+{
+    "vaId": "FT1234",
+    "packageOrders": [
+        499790950734,
+        499790950735
+    ],
+    "amount": "111111",
+    "shopCode": "S1234",
+    "isInDebt": true
+}
+end note
+pm -> pcd
+note right pm
+{
+  "success": true,
+  "data": {
+    "paymentInfo": [
+      {
+        "packageOrder": 499790950734,
+        "paidAmount": 111
+      }
+    ],
+    "remainAmount": 111000
+  }
+}
+end note
+deactivate pm
+end alt
+pcd -> pcd_db : update va_shop_detail, va_transfer_trans, va_balance
+@enduml
