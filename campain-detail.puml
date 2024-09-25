@@ -1,0 +1,103 @@
+@startuml
+title campain-detail
+participant "App " as app
+participant "GhtkPayment Loan" as loan
+database "db Loan" as db
+
+activate app
+app -> loan:  request call api '/api/v1/campaign/{id}/detail'
+deactivate app
+
+activate loan
+loan -> loan: valid request
+
+loan -> db: - Lấy thông tin campaign
+deactivate loan
+activate db
+note right loan
+SELECT * FROM campaign
+WHERE id = ?
+end note
+db --> loan: result campaign
+deactivate db
+
+loan -> db: - Lấy thông tin vùng - tỉnh campaign
+activate db
+note right loan
+SELECT * FROM campaign_area
+WHERE campaign_id = ?
+end note
+db --> loan: result campaign_area
+deactivate db
+
+loan -> db: - Lấy thông danh mục ngành campaign
+activate db
+note right loan
+SELECT * FROM campaign_category
+WHERE campaign_id = ?
+end note
+db --> loan: result campaign_category
+deactivate db
+
+activate loan
+loan --> loan : handle result db
+
+loan --> app: response
+deactivate loan
+note left loan
+{
+    "success": true,
+    "data": {
+        "name": "20230223_B2CHanoi",
+        "shopTypeIds": [
+            "0",
+            "1"
+        ],
+        "campaignAreas": [
+            {
+                "areaId": 1,
+                "provinceIds": [
+                    1
+                ],
+                "isSelectAll": true
+            },
+            {
+                "areaId": 2,
+                "provinceIds": [
+                    2
+                ],
+                "isSelectAll": true
+            }
+        ],
+        "categoryIds": [
+            1,
+            2
+        ],
+        "seniorityFrom": 3,
+        "seniorityTo": 20,
+        "successDeliveryFrom": 200,
+        "successDeliveryTo": 300,
+        "returnRateFrom": 1,
+        "returnRateTo": 1,
+        "codAmountFrom": 20,
+        "codAmountTo": 30,
+        "leftDayFrom": 3,
+        "leftDayTo": 30,
+        "codWithdrawFrom": 3,
+        "codWithdrawTo": 4,
+        "debtAmountFrom": 1,
+        "debtAmountTo": 10,
+        "selectType": 2,
+        "moneySource": 1,
+        "budget": 10000000,
+        "limitRate": 1,
+        "maxLimitAmount": 10000000,
+        "applyFrom": "12/01/2023",
+        "applyTo": "01/03/2023",
+        "blackList": "S8009726,S8009727",
+        "whiteList": ""
+    }
+}
+end note
+
+@enduml
